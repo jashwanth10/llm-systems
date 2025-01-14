@@ -30,7 +30,7 @@
 __device__ float fn(int fn_id, float x, float y=0) {
     switch(fn_id) {
       case ADD_FUNC: {
-        return x + y;
+        return x+y;
       }
       case MUL_FUNC: {
         return x * y;
