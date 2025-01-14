@@ -63,9 +63,22 @@ def topological_sort(variable: Variable) -> Iterable[Variable]:
         Non-constant Variables in topological order starting from the right.
     """
     # BEGIN ASSIGN1_1
-    # TODO
+    visited = set()
+    result: Iterable[Variable] = []
     
-    raise NotImplementedError("Task Autodiff Not Implemented Yet")
+    def dfs(var):
+      visited.add(var.unique_id)
+      for child in var.parents:
+        if not child.is_constant():
+          if child.unique_id not in visited:
+            dfs(child)
+      result.append(var)
+    
+    dfs(variable)
+    result.reverse()
+
+    return result
+    
     # END ASSIGN1_1
 
 
