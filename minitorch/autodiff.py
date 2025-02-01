@@ -95,8 +95,19 @@ def backpropagate(variable: Variable, deriv: Any) -> None:
     """
     # BEGIN ASSIGN1_1
     # TODO
+    dic = {variable.unique_id: deriv} 
+    for variable in topological_sort(variable):
+      if variable.is_leaf(): 
+        variable.accumulate_derivative(dic[variable.unique_id]) 
+      else: 
+        for (next_variable, next_deriv) in variable.chain_rule(dic[variable.unique_id]): 
+          if next_variable.unique_id in dic:
+            dic[next_variable.unique_id] += next_deriv
+          else:
+            dic[next_variable.unique_id] = next_deriv
+    
    
-    raise NotImplementedError("Task Autodiff Not Implemented Yet")
+    # raise NotImplementedError("Task Autodiff Not Implemented Yet")
     # END ASSIGN1_1
 
 
